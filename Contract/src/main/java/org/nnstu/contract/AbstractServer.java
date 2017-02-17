@@ -19,6 +19,16 @@ public abstract class AbstractServer {
         return SERVER_PORT;
     }
 
+    /**
+     * Utility method to retrieve Maven module name of the current server class, can't be overridden
+     *
+     * @return {@link String} that represents Maven module of the current class
+     */
+    public final String getServerMavenModuleName() {
+        String packageName = getClass().getPackage().getName().split("\\.")[1];
+        return "Project" + packageName.substring(packageName.length() - 1);
+    }
+
     // This method should be main in your server instance and has to be overridden with your custom logic.
     public abstract void launchServer();
 

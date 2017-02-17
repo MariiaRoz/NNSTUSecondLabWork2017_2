@@ -95,7 +95,9 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.nnstu.launcher.MainLauncher</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <mainClass>org.nnstu1.launcher.MainLauncherUI</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
