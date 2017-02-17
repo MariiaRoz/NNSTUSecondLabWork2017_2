@@ -40,6 +40,7 @@
                 <groupId>NNSTU</groupId>
                 <artifactId>Contract</artifactId>
                 <version>1.0-SNAPSHOT</version>
+                <scope>compile</scope>
             </dependency>
             <!-- Projects dependencies (updatable) -->
             <dependency>
@@ -97,7 +98,7 @@
                             <addClasspath>true</addClasspath>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                            <mainClass>org.nnstu1.launcher.MainLauncherUI</mainClass>
+                            <mainClass>org.nnstu.launcher.MainLauncherUI</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
