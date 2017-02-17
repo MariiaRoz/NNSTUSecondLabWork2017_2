@@ -4,7 +4,7 @@ This project is used to create multiple implementations of the client-server cha
 
 ## Current CI Status
 
-
+[![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_1.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_1)
 
 ## Authors
 
