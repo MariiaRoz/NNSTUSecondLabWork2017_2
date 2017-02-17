@@ -25,11 +25,11 @@ public class ServerLookupService {
     private final Map<Integer, RunnableServerInstance> servers = new HashMap<Integer, RunnableServerInstance>();
     private ExecutorService executorService = null;
 
-    public ServerLookupService(String classPathURL, String... packageNames) {
+    public ServerLookupService(String packageName) {
         Reflections reflection = new Reflections(
                 new ConfigurationBuilder()
-                        .filterInputsBy(new FilterBuilder().includePackage(classPathURL))
-                        .setUrls(ClasspathHelper.forPackage(classPathURL))
+                        .filterInputsBy(new FilterBuilder().includePackage(packageName))
+                        .setUrls(ClasspathHelper.forPackage(packageName))
                         .setScanners(new SubTypesScanner(), new TypeAnnotationsScanner())
         );
 
@@ -73,7 +73,7 @@ public class ServerLookupService {
 
         // Submitting tasks for execution
         for (RunnableServerInstance task : servers.values()) {
-            executorService.submit(task);
+            executorService.submit(daemonize(task));
             result.append("Successfully created instance of ").append(task.getServerId().toString()).append("\n");
         }
         result.append("Successfully submitted ").append(servers.size()).append(servers.size() == 1 ? " instance." : " instances.");
@@ -114,7 +114,7 @@ public class ServerLookupService {
         executorService = Executors.newSingleThreadExecutor();
 
         // Submitting task for execution
-        executorService.submit(runnableServerInstance);
+        executorService.submit(daemonize(runnableServerInstance));
         result.append("Successfully created instance of ").append(runnableServerInstance.getServerId().toString()).append("\n");
 
         return result.toString();
@@ -163,5 +163,21 @@ public class ServerLookupService {
                 executorService = null;
             }
         }
+    }
+
+    /**
+     * Quick fix for thread overflow prevention, etc.
+     *
+     * @param task {@link Runnable} to be set as daemon thread
+     * @return daemon {@link Thread} with task
+     */
+    private Thread daemonize(Runnable task) {
+        if (task == null) {
+            return null;
+        }
+
+        Thread daemonizedTask = new Thread(task);
+        daemonizedTask.setDaemon(true);
+        return daemonizedTask;
     }
 }
