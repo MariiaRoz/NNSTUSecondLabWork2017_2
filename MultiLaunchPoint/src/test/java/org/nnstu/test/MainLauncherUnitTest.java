@@ -9,6 +9,11 @@ import org.nnstu.test.stubs.single.SingleServerStub;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Launcher unit testing on local server stubs
+ *
+ * @author Roman Khlebnov
+ */
 public class MainLauncherUnitTest {
     private MainLauncher emptyInstance = null;
     private MainLauncher singleInstance = null;
