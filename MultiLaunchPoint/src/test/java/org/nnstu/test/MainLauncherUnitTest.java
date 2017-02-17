@@ -48,7 +48,6 @@ public class MainLauncherUnitTest {
     @Test
     public void multiLaunchTest() {
         String launchResult = multiInstance.simultaneousLaunch();
-        System.out.println(launchResult);
         assertTrue(
                 "Check if the SingleServerStub instance was started.",
                 StringUtils.containsIgnoreCase(

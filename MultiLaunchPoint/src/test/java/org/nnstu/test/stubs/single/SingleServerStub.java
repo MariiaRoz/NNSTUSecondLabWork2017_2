@@ -9,11 +9,11 @@ public class SingleServerStub extends AbstractServer {
 
     @Override
     public void launchServer() {
-        System.out.println("Server was launched at port " + getServerPort() + ".");
+        System.out.println("SingleServerStub was launched at port " + getServerPort() + ".");
     }
 
     @Override
     public void stopServer() throws Exception {
-        System.out.println("Server at port " + getServerPort() + " was stopped.");
+        System.out.println("SingleServerStub at port " + getServerPort() + " was stopped.");
     }
 }
