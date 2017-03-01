@@ -5,7 +5,7 @@ import org.nnstu.contract.AbstractServer;
 public class TestServer extends AbstractServer{
 
     public TestServer() {
-        super(8080);
+        super(8089);
     }
 
     @Override
