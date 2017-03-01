@@ -23,6 +23,14 @@ To start working under your project, you need to:
 * Create *Pull Request* in order to send for review and merge your changes with the `master` branch.
 * Set correct *Assignees* (one of the **Authors**) and *Labels* for your *Pull Request* review. 
 
+## Labels Purpose Description
+
+* **Bug** - reviewer found an issue / CI issue / merge issue / static code analysis issue.
+* **Duplicate** - if *Pull Request* was duplicated.
+* **Enhancement** - use to mark *Pull Request* with code enhancements.
+* **Help Wanted** - developer has encountered unresolvable issue and require additional help.
+* **Question** - developer is not sure about code workflow / needs an advice. 
+
 ## Current Continuous Integration Status
 
 [![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2)
