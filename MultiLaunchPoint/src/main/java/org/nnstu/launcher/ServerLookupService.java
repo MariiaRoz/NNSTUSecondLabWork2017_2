@@ -45,7 +45,7 @@ public class ServerLookupService {
                 System.err.println("Error during attempt to launch " + server.getCanonicalName() + ": " + e.getMessage());
             }
 
-            if (instance != null) {
+            if (instance != null && instancePort != -1) {
                 if (!servers.containsKey(instancePort)) {
                     servers.put(instancePort, instance);
                 } else {
