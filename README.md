@@ -10,7 +10,7 @@ Don't forget to do following:
 
 ## Current CI Status
 
-[![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_1.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_1)
+[![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2)
 
 ## Authors
 
