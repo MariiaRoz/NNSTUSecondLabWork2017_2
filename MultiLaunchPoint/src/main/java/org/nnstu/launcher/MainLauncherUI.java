@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -20,6 +18,7 @@ import org.nnstu.launcher.util.RunnableServerInstance;
 import org.nnstu.launcher.util.ServerId;
 import org.nnstu.launcher.util.ServerStatus;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -66,17 +65,17 @@ public class MainLauncherUI extends Application {
         // Actual stage rendering
         Scene managerScene = new Scene(new Group(), 620, 455);
 
-        final TableView<ObservableServerPOJO> serversTable = new TableView<ObservableServerPOJO>(serverIdsAndStates);
+        final TableView<ObservableServerPOJO> serversTable = new TableView<>(serverIdsAndStates);
         serversTable.setEditable(false);
 
-        final TableColumn<ObservableServerPOJO, String> serverInfoColumn = new TableColumn<ObservableServerPOJO, String>(firstColumnId);
+        final TableColumn<ObservableServerPOJO, String> serverInfoColumn = new TableColumn<>(firstColumnId);
         serverInfoColumn.setMinWidth(400.0);
-        serverInfoColumn.setCellValueFactory(new PropertyValueFactory<ObservableServerPOJO, String>("info"));
-        final TableColumn<ObservableServerPOJO, String> serverStatusColumn = new TableColumn<ObservableServerPOJO, String>(secondColumnId);
+        serverInfoColumn.setCellValueFactory(new PropertyValueFactory<>("info"));
+        final TableColumn<ObservableServerPOJO, String> serverStatusColumn = new TableColumn<>(secondColumnId);
         serverStatusColumn.setMinWidth(200.0);
-        serverStatusColumn.setCellValueFactory(new PropertyValueFactory<ObservableServerPOJO, String>("status"));
+        serverStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        serversTable.getColumns().setAll(serverInfoColumn, serverStatusColumn);
+        serversTable.getColumns().setAll(Arrays.asList(serverInfoColumn, serverStatusColumn));
 
         // Buttons section
         final Button launchAll = new Button("Launch All Servers");
@@ -86,45 +85,42 @@ public class MainLauncherUI extends Application {
         final Button stopAll = new Button("Stop All Servers");
         stopAll.setMinSize(200.0, 30.0);
 
-        launchAll.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                if (!lookupService.isLaunchingLocked()) {
-                    lookupService.simultaneousLaunch();
-
-                    for (ObservableServerPOJO value : serverIdsAndStates) {
-                        value.setStatus(ServerStatus.LAUNCHED);
-                    }
-
-                    setLaunchButtonsState(lookupService.isLaunchingLocked(), launchAll, launchSelected);
-                }
-            }
-        });
-
-        launchSelected.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                if (!lookupService.isLaunchingLocked()) {
-                    ObservableServerPOJO selectedServer = serversTable.getSelectionModel().getSelectedItem();
-
-                    if (selectedServer != null) {
-                        lookupService.launchSingleInstance(selectedServer.getServerId());
-                        selectedServer.setStatus(ServerStatus.LAUNCHED);
-                    }
-
-                    setLaunchButtonsState(lookupService.isLaunchingLocked(), launchAll, launchSelected);
-                }
-            }
-        });
-
-        stopAll.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                lookupService.stopExecution();
+        launchAll.setOnAction(event -> {
+            if (!lookupService.isLaunchingLocked()) {
+                lookupService.simultaneousLaunch();
 
                 for (ObservableServerPOJO value : serverIdsAndStates) {
-                    value.setStatus(ServerStatus.STOPPED);
+                    value.setStatus(ServerStatus.LAUNCHED);
                 }
 
-                setLaunchButtonsState(lookupService.isLaunchingLocked(), launchAll, launchSelected);
+                launchAll.setDisable(lookupService.isLaunchingLocked());
+                launchSelected.setDisable(lookupService.isLaunchingLocked());
             }
+        });
+
+        launchSelected.setOnAction(event -> {
+            if (!lookupService.isLaunchingLocked()) {
+                ObservableServerPOJO selectedServer = serversTable.getSelectionModel().getSelectedItem();
+
+                if (selectedServer != null) {
+                    lookupService.launchSingleInstance(selectedServer.getServerId());
+                    selectedServer.setStatus(ServerStatus.LAUNCHED);
+                }
+
+                launchAll.setDisable(lookupService.isLaunchingLocked());
+                launchSelected.setDisable(lookupService.isLaunchingLocked());
+            }
+        });
+
+        stopAll.setOnAction(event -> {
+            lookupService.stopExecution();
+
+            for (ObservableServerPOJO value : serverIdsAndStates) {
+                value.setStatus(ServerStatus.STOPPED);
+            }
+
+            launchAll.setDisable(lookupService.isLaunchingLocked());
+            launchSelected.setDisable(lookupService.isLaunchingLocked());
         });
 
         // Formatting section
@@ -162,17 +158,6 @@ public class MainLauncherUI extends Application {
     }
 
     /**
-     * Utility method to explicitly block user input
-     *
-     * @param buttons {@link Button} to be blocked
-     */
-    private void setLaunchButtonsState(boolean state, Button... buttons) {
-        for (Button button : buttons) {
-            button.setDisable(state);
-        }
-    }
-
-    /**
      * Observable server information structure
      *
      * @author Roman Khlebnov
@@ -182,37 +167,37 @@ public class MainLauncherUI extends Application {
         private final SimpleStringProperty info;
         private final SimpleStringProperty status;
 
-        public ObservableServerPOJO(ServerId info, ServerStatus status) {
+        ObservableServerPOJO(ServerId info, ServerStatus status) {
             this.serverId = info;
             this.info = new SimpleStringProperty(info.toString());
             this.status = new SimpleStringProperty(status.getValue());
         }
 
-        public ServerId getServerId() {
+        ServerId getServerId() {
             return serverId;
         }
 
-        public String getInfo() {
+        String getInfo() {
             return info.get();
         }
 
-        public SimpleStringProperty infoProperty() {
+        SimpleStringProperty infoProperty() {
             return info;
         }
 
-        public void setInfo(ServerId info) {
+        void setInfo(ServerId info) {
             this.info.set(info.toString());
         }
 
-        public String getStatus() {
+        String getStatus() {
             return status.get();
         }
 
-        public SimpleStringProperty statusProperty() {
+        SimpleStringProperty statusProperty() {
             return status;
         }
 
-        public void setStatus(ServerStatus status) {
+        void setStatus(ServerStatus status) {
             this.status.set(status.getValue());
         }
     }

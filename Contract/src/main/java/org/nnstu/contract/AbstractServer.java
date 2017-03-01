@@ -9,14 +9,14 @@ package org.nnstu.contract;
 public abstract class AbstractServer {
     // Mandatory field with server port.
     // We assume that all instances will be launched on the localhost with different ports.
-    private final int SERVER_PORT;
+    private final int serverPort;
 
     public AbstractServer(int serverPort) {
-        this.SERVER_PORT = serverPort;
+        this.serverPort = serverPort;
     }
 
     public int getServerPort() {
-        return SERVER_PORT;
+        return serverPort;
     }
 
     /**
@@ -33,5 +33,5 @@ public abstract class AbstractServer {
     public abstract void launchServer();
 
     // This method should serve as a stopping power for your server and has to be overridden with your custom logic.
-    public abstract void stopServer() throws Exception;
+    public abstract void stopServer() throws ServerExitException;
 }

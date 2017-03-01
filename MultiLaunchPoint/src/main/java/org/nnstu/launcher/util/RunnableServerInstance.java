@@ -1,6 +1,7 @@
 package org.nnstu.launcher.util;
 
 import org.nnstu.contract.AbstractServer;
+import org.nnstu.contract.ServerExitException;
 
 /**
  * This class is used for representing single server instance running on it's own thread
@@ -22,13 +23,14 @@ public class RunnableServerInstance implements Runnable {
         );
     }
 
+    @Override
     public void run() {
         if (instance != null) {
             instance.launchServer();
         }
     }
 
-    public void stop() throws Exception {
+    public void stop() throws ServerExitException {
         if (instance != null) {
             instance.stopServer();
         }

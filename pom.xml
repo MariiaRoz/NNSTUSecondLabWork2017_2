@@ -35,6 +35,12 @@
                 <version>${apache.commons.version}</version>
                 <scope>compile</scope>
             </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+                <scope>compile</scope>
+            </dependency>
             <!-- Contract dependency -->
             <dependency>
                 <groupId>NNSTU</groupId>
@@ -113,12 +119,18 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 
     <properties>
         <java.version>1.8</java.version>
         <junit.version>4.12</junit.version>
         <apache.commons.version>3.5</apache.commons.version>
+        <log4j.version>1.2.17</log4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

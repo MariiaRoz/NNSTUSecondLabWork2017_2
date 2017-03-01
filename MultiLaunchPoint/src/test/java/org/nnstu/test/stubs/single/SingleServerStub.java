@@ -1,6 +1,7 @@
 package org.nnstu.test.stubs.single;
 
 import org.nnstu.contract.AbstractServer;
+import org.nnstu.contract.ServerExitException;
 
 public class SingleServerStub extends AbstractServer {
     public SingleServerStub() {
@@ -13,7 +14,7 @@ public class SingleServerStub extends AbstractServer {
     }
 
     @Override
-    public void stopServer() throws Exception {
+    public void stopServer() throws ServerExitException {
         System.out.println("SingleServerStub at port " + getServerPort() + " was stopped.");
     }
 }
