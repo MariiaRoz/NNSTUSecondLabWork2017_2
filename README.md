@@ -25,11 +25,10 @@ To start working under your project, you need to:
 
 ## Labels Purpose Description
 
-* **Bug** - reviewer found an issue / CI issue / merge issue / static code analysis issue.
+* **Bug** - reviewer have found an issue / CI issue / merge issue / static code analysis issue.
 * **Duplicate** - if *Pull Request* was duplicated.
 * **Enhancement** - use to mark *Pull Request* with code enhancements.
-* **Help Wanted** - developer has encountered unresolvable issue and require additional help.
-* **Question** - developer is not sure about code workflow / needs an advice. 
+* **Help Wanted** - developer has encountered unresolvable issue / is not sure about code workflow / needs an advice. 
 
 ## Current Continuous Integration Status
 
