@@ -1,9 +1,19 @@
+sudo: false
 language: java
+
 jdk:
   - oraclejdk8
-sudo: false
+
 addons:
   apt:
     packages:
       - oracle-java8-installer
-script: mvn clean verify -e
+  sonarqube:
+    token:
+      secure: "nM+0/GrqMTJ/aWC94WKFatixn6uQKLjd63mtxiSWRMJc4CpeFMhCRrok7glLOdiPbOf0jcrYM9+FTCGpU/xoCRlSqTu1aiRowKH1rMAAX6KJ55EpKiIg7t4m80S/jVmVioXcLrLxgu2jzIecBuHasYd9ZXzRcg/Rg2KmAfwYec9pbTXfwL4JjwJvQl8Ej2pz7UCsSrdfd4YEtxkFks9S5OCkqr6XlB+lIbS2vv5IRT5F4JZGxuL4z00zG2vPt+n/b4U3Ms4dbIS7da3tUffZ+gczvm9uv7xwsvj9bUhxwnzMD0rR+2/VMLkxxYqLHnfpAWG+kH34U+8ayJbCf9x59/BVzNqUUGHoBI9n0z5Nb/gAPdXCWOoTbe6oxiYvMG1jmQ8JoBGEA7Tohx99mXrXVDwqwnwDz64RqgVyZcNXlxp1TyzXRbQlgTzKLJCmVQaKs19TfsboHVa/J3siXk0XVp79bylRJps6L1GaD3clGIfEQAKf1Y9YPP+RpkSFwN+kTW/5sJIjWir83v8tJv/EfT6OamJvTvrR+Jo6Ice2ZYQEOQZnokWPFjWPvnmiH9kl7DgnrXnSACq7GjqZhvNS1Cw4MVbJqzM1UcuEAoXuudx1K39OJn6MZ5mGHlfPsyGMosKAVjOrkLl0TePIhJ8njHcC8diXuuUG8DgpVp6WfOM="
+    github-token:
+      secure: "yCfn7DuWvsDePNlBZtf96IXfIXmC0ZwtTfln719akIaKEKl+Rwjjg9cRmORX52QQiNQsvygMTo8aGfxhzDq48QIvsRUgD/yt60eiTDVckG7zMZgWygCuu4zvgGbkP3uylsS9Dqb7r36KypZgwfzvRR1Hdkfi19NqY5nuaWzFbdFnrDO2LTSyR+rT4A22gi6dFwXgzDrqYr31k4S1/ULs8/b9F1T7coOqjNS+mJjgeS5NcWibud3LiFxJvtZRLgXVS2Wmno/BUQe+w0LDhXUP7e9oNAbJf++vLYikTYbB69d/HJSpGIxsNrXvEY3wh61FMUhT+p82Ur7VKxVd+rhmWMXt5UaL9Ynp9lTHsyd4StfljPAeZNN49gxUd50IRlDGpiMKjaHDyD6QW6zo1Jw0s/xurGHoeQEKSYNb5QINp/zuKOzgrEKRBqKRM5XayL/UjODfNJtbkUpj5LNgE9jiAifZhYY/norHcrKMWzEWUlct0/5BCbyT4uFKIvF6GuF+UBOZmZpwLGGdRMBTdTA1wgcT16htZ+eThAGKchuO9dVw1VDxw0qPgVL+i1664TjSkuDeW2iLydSHLzd4i5tuZLkK7uD1zVsk7Nml0p4znRX9Vuw8Y5gL2aiuI/99irtSaz5YVUPsvJgAoAm385ZkqQq+FS7pQZidycj4v2TF4E0="
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarQube analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
