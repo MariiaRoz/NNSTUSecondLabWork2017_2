@@ -1,4 +1,4 @@
-package org.nnstu.contract;
+package org.nnstu.contract.exceptions;
 
 import java.security.PrivilegedActionException;
 

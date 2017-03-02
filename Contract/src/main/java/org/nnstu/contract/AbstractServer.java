@@ -1,6 +1,7 @@
 package org.nnstu.contract;
 
 import org.apache.log4j.Logger;
+import org.nnstu.contract.exceptions.ServerExitException;
 
 /**
  * This class is has to be overridden by your server instances in order to perform

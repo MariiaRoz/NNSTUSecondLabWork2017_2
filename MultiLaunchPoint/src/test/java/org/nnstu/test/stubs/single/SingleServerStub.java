@@ -1,7 +1,7 @@
 package org.nnstu.test.stubs.single;
 
 import org.nnstu.contract.AbstractServer;
-import org.nnstu.contract.ServerExitException;
+import org.nnstu.contract.exceptions.ServerExitException;
 
 public class SingleServerStub extends AbstractServer {
     public SingleServerStub() {

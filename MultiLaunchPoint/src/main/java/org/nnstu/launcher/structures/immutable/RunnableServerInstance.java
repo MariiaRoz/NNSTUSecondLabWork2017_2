@@ -2,7 +2,7 @@ package org.nnstu.launcher.structures.immutable;
 
 import lombok.Value;
 import org.nnstu.contract.AbstractServer;
-import org.nnstu.contract.ServerExitException;
+import org.nnstu.contract.exceptions.ServerExitException;
 
 /**
  * This immutable class is used for representing single server instance running on it's own thread
