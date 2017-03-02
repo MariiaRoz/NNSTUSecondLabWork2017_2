@@ -30,9 +30,9 @@ To start working under your project, you need to:
 * **Enhancement** - use to mark *Pull Request* with code enhancements.
 * **Help Wanted** - developer has encountered unresolvable issue / is not sure about code workflow / needs an advice. 
 
-## Current Continuous Integration Status
+## Current Services Status
 
-[![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2)
+[![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=NNSTU%3ASecondLabWork)](https://sonarqube.com/dashboard/index/NNSTU%3ASecondLabWork)
 
 ## Main Authors
 
