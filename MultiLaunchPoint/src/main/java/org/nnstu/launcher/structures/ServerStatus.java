@@ -1,4 +1,4 @@
-package org.nnstu.launcher.util;
+package org.nnstu.launcher.structures;
 
 /**
  * Small enum to determine server status

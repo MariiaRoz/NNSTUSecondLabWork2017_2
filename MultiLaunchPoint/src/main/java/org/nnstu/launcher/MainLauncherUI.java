@@ -1,26 +1,22 @@
 package org.nnstu.launcher;
 
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.nnstu.launcher.util.RunnableServerInstance;
-import org.nnstu.launcher.util.ServerId;
-import org.nnstu.launcher.util.ServerStatus;
+import lombok.extern.log4j.Log4j;
+import org.nnstu.launcher.services.ServerLookupService;
+import org.nnstu.launcher.structures.ServerDataModel;
+import org.nnstu.launcher.structures.ServerStatus;
+import org.nnstu.launcher.util.ConversionUtils;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,6 +24,7 @@ import java.util.List;
  *
  * @author Roman Khlebnov
  */
+@Log4j
 public class MainLauncherUI extends Application {
     private static final String PACKAGE_NAME = "org";
     private static final String FIRST_COLUMN_ID = "Server";
@@ -36,6 +33,11 @@ public class MainLauncherUI extends Application {
 
     private ServerLookupService lookupService;
 
+    /**
+     * Application entry point
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -58,13 +60,7 @@ public class MainLauncherUI extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Data preparation
         lookupService = new ServerLookupService(PACKAGE_NAME);
-        final ObservableList<ServerDataModel> serverIdsAndStates = FXCollections.observableArrayList();
-
-        Collection<RunnableServerInstance> servers = lookupService.getAllServerInstances();
-
-        for (RunnableServerInstance instance : servers) {
-            serverIdsAndStates.add(new ServerDataModel(instance.getServerId(), ServerStatus.STOPPED));
-        }
+        final ObservableList<ServerDataModel> serverIdsAndStates = ConversionUtils.convertToObservableList(lookupService.getAllServerInstances());
 
         // Actual stage rendering
         Scene managerScene = new Scene(new Group(), 620, 455);
@@ -118,10 +114,12 @@ public class MainLauncherUI extends Application {
 
         final TableView<ServerDataModel> serversTable = new TableView<>(data);
         serversTable.setEditable(false);
+        serversTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         final TableColumn<ServerDataModel, String> serverInfoColumn = new TableColumn<>(FIRST_COLUMN_ID);
         serverInfoColumn.setMinWidth(400.0);
         serverInfoColumn.setCellValueFactory(new PropertyValueFactory<>("info"));
+
         final TableColumn<ServerDataModel, String> serverStatusColumn = new TableColumn<>(SECOND_COLUMN_ID);
         serverStatusColumn.setMinWidth(200.0);
         serverStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -158,94 +156,55 @@ public class MainLauncherUI extends Application {
     private List<Button> prepareButtons(TableView<ServerDataModel> serversTable, ObservableList<ServerDataModel> data) {
         final Button launchAll = new Button("Launch All Servers");
         launchAll.setMinSize(200.0, 30.0);
-        final Button launchSelected = new Button("Launch Selected Server");
+        final Button launchSelected = new Button("Launch Selected Server/s");
         launchSelected.setMinSize(200.0, 30.0);
         final Button stopAll = new Button("Stop All Servers");
         stopAll.setMinSize(200.0, 30.0);
 
         launchAll.setOnAction(event -> {
             if (!lookupService.isLaunchingLocked()) {
-                lookupService.simultaneousLaunch();
+                try {
+                    data.forEach(value -> value.setStatus(ServerStatus.LAUNCHED));
+                    log.debug(lookupService.simultaneousLaunch());
 
-                for (ServerDataModel value : data) {
-                    value.setStatus(ServerStatus.LAUNCHED);
+                    launchAll.setDisable(lookupService.isLaunchingLocked());
+                    launchSelected.setDisable(lookupService.isLaunchingLocked());
+                } catch (InstantiationException e) {
+                    data.forEach(value -> value.setStatus(ServerStatus.STOPPED));
+                    log.error(e);
                 }
-
-                launchAll.setDisable(lookupService.isLaunchingLocked());
-                launchSelected.setDisable(lookupService.isLaunchingLocked());
             }
         });
 
         launchSelected.setOnAction(event -> {
             if (!lookupService.isLaunchingLocked()) {
-                ServerDataModel selectedServer = serversTable.getSelectionModel().getSelectedItem();
+                ObservableList<ServerDataModel> selectedServers = serversTable.getSelectionModel().getSelectedItems();
 
-                if (selectedServer != null) {
-                    lookupService.launchSingleInstance(selectedServer.getServerId());
-                    selectedServer.setStatus(ServerStatus.LAUNCHED);
+                try {
+                    if (selectedServers == null || selectedServers.isEmpty()) {
+                        return;
+                    }
+
+                    selectedServers.forEach(value -> value.setStatus(ServerStatus.LAUNCHED));
+                    log.debug(lookupService.pinpontLaunch(selectedServers.stream().mapToInt(server -> server.getServerId().getServerPort()).toArray()));
+
+                    launchAll.setDisable(lookupService.isLaunchingLocked());
+                    launchSelected.setDisable(lookupService.isLaunchingLocked());
+                } catch (InstantiationException e) {
+                    selectedServers.forEach(value -> value.setStatus(ServerStatus.STOPPED));
+                    log.error(e);
                 }
-
-                launchAll.setDisable(lookupService.isLaunchingLocked());
-                launchSelected.setDisable(lookupService.isLaunchingLocked());
             }
         });
 
         stopAll.setOnAction(event -> {
+            data.forEach(value -> value.setStatus(ServerStatus.STOPPED));
             lookupService.stopExecution();
-
-            for (ServerDataModel value : data) {
-                value.setStatus(ServerStatus.STOPPED);
-            }
 
             launchAll.setDisable(lookupService.isLaunchingLocked());
             launchSelected.setDisable(lookupService.isLaunchingLocked());
         });
 
         return Arrays.asList(launchAll, launchSelected, stopAll);
-    }
-
-    /**
-     * {@link ObservableList} information data model
-     *
-     * @author Roman Khlebnov
-     */
-    public static class ServerDataModel {
-        private final ServerId serverId;
-        private final SimpleStringProperty info;
-        private final SimpleStringProperty status;
-
-        ServerDataModel(ServerId info, ServerStatus status) {
-            this.serverId = info;
-            this.info = new SimpleStringProperty(info.toString());
-            this.status = new SimpleStringProperty(status.getValue());
-        }
-
-        public ServerId getServerId() {
-            return serverId;
-        }
-
-        public String getInfo() {
-            return info.get();
-        }
-
-        public SimpleStringProperty infoProperty() {
-            return info;
-        }
-
-        public void setInfo(ServerId info) {
-            this.info.set(info.toString());
-        }
-
-        public String getStatus() {
-            return status.get();
-        }
-
-        public SimpleStringProperty statusProperty() {
-            return status;
-        }
-
-        public void setStatus(ServerStatus status) {
-            this.status.set(status.getValue());
-        }
     }
 }

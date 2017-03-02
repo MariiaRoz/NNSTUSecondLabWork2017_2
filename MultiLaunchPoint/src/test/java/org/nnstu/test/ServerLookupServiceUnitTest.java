@@ -3,7 +3,7 @@ package org.nnstu.test;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.nnstu.launcher.ServerLookupService;
+import org.nnstu.launcher.services.ServerLookupService;
 import org.nnstu.test.stubs.ServerStub;
 import org.nnstu.test.stubs.single.SingleServerStub;
 
@@ -26,16 +26,9 @@ public class ServerLookupServiceUnitTest {
         multiInstance = new ServerLookupService("org.nnstu.test.stubs");
     }
 
-    @Test
-    public void emptyLaunchTest() {
-        String launchResult = emptyInstance.simultaneousLaunch();
-        assertTrue(
-                "Check if no instances were started.",
-                StringUtils.containsIgnoreCase(
-                        launchResult,
-                        "No servers found, exiting."
-                )
-        );
+    @Test(expected = InstantiationException.class)
+    public void emptyLaunchTest() throws InstantiationException {
+        emptyInstance.simultaneousLaunch();
         assertEquals("Check that no servers were found.", emptyInstance.getAllServerInstances().size(), 0, 0);
         assertFalse("Check that service is not locked after launch.", emptyInstance.isLaunchingLocked());
 
@@ -45,7 +38,7 @@ public class ServerLookupServiceUnitTest {
     }
 
     @Test
-    public void singleLaunchTest() {
+    public void singleLaunchTest() throws InstantiationException {
         String launchResult = singleInstance.simultaneousLaunch();
         assertTrue(
                 "Check if the single instance was started.",
@@ -63,7 +56,7 @@ public class ServerLookupServiceUnitTest {
     }
 
     @Test
-    public void multiLaunchTest() {
+    public void multiLaunchTest() throws InstantiationException {
         String launchResult = multiInstance.simultaneousLaunch();
         assertTrue(
                 "Check if the SingleServerStub instance was started.",
@@ -88,8 +81,8 @@ public class ServerLookupServiceUnitTest {
     }
 
     @Test
-    public void singleChoiceLaunchTest() {
-        String launchResult = multiInstance.launchSingleInstance(666);
+    public void singleChoiceLaunchTest() throws InstantiationException {
+        String launchResult = multiInstance.pinpontLaunch(666);
         assertFalse(
                 "Check if the SingleServerStub instance was started.",
                 StringUtils.containsIgnoreCase(
