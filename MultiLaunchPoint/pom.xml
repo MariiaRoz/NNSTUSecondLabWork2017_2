@@ -81,13 +81,5 @@
             <groupId>NNSTU</groupId>
             <artifactId>Project6</artifactId>
         </dependency>
-        <dependency>
-            <groupId>NNSTU</groupId>
-            <artifactId>Project7</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>NNSTU</groupId>
-            <artifactId>Project8</artifactId>
-        </dependency>
     </dependencies>
 </project>

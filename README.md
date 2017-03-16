@@ -41,4 +41,40 @@ To start working under your project, you need to:
 
 ## Module Authors
 
-**Unknown**
+**Project 1**
+* **Komissarov Kirill** - *Team Lead*
+* **Kamysheva Tatyana**
+* **Korobkova Ekaterina**
+* **Syrchin Vladislav**
+* **Bogatov Egor**
+
+**Project 2**
+* **Zaborin Stanislav** - *Team Lead*
+* **Chistyakova Yulia**
+* **Rojkova Mariya**
+* **Popov Alexander**
+
+**Project 3**
+* **Chupreev David** - *Team Lead*
+* **Sorshneva Marina**
+* **Kalinnikov Sergey**
+* **Baranova Alena**
+
+**Project 4**
+* **Maslennikov Alexander** - *Team Lead*
+* **Erofeeva Anastasiya**
+* **Sekachkin Mikhail**
+* **Korotaev Ilya**
+
+**Project 5**
+* **Trubkin Nikita** - *Team Lead*
+* **Vermenik Maxim**
+* **Kuznetsov Andrei**
+* **Elizarova Yulia**
+
+**Project 6**
+* **Lemeshevskiy Mark** - *Team Lead*
+* **Koryachikhina Anastasiya**
+* **Sannikov Alexey**
+* **Umnyagin Ivan**
+* **Gordeev Maxim**
