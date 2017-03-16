@@ -2,6 +2,10 @@
 
 This project is used to create multiple implementations of the client-server chat application by groups of students.
 
+## Current Services Status
+
+[![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=NNSTU%3ASecondLabWork)](https://sonarqube.com/dashboard/index/NNSTU%3ASecondLabWork)
+
 ## Prerequisites
 
 Don't forget to do the following, if you are able to add **\*.iml** files to VCS:
@@ -29,10 +33,6 @@ To start working under your project, you need to:
 * **Duplicate** - if *Pull Request* was duplicated.
 * **Enhancement** - use to mark *Pull Request* with code enhancements.
 * **Help Wanted** - developer has encountered unresolvable issue / is not sure about code workflow / needs an advice. 
-
-## Current Services Status
-
-[![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=NNSTU%3ASecondLabWork)](https://sonarqube.com/dashboard/index/NNSTU%3ASecondLabWork)
 
 ## Main Authors
 
