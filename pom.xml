@@ -29,6 +29,12 @@
                 <scope>compile</scope>
             </dependency>
             <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${google.guava.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
@@ -123,11 +129,12 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <apache.commons.version>3.5</apache.commons.version>
+        <google.guava.version>21.0</google.guava.version>
+        <log4j.version>1.2.17</log4j.version>
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
-        <apache.commons.version>3.5</apache.commons.version>
-        <log4j.version>1.2.17</log4j.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
 </project>
