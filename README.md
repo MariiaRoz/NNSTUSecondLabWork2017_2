@@ -6,9 +6,6 @@ This project is used to create multiple implementations of the client-server cha
 
 [![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2) 
 [![Bugs](https://sonarqube.com/api/badges/gate?key=NNSTU%3ASecondLabWork&metric=bugs)](https://sonarqube.com/dashboard/index/NNSTU%3ASecondLabWork)
-[![Vulnerabilities](https://sonarqube.com/api/badges/gate?key=NNSTU%3ASecondLabWork&metric=vulnerabilities)](https://sonarqube.com/dashboard/index/NNSTU%3ASecondLabWork)
-[![Code Smells](https://sonarqube.com/api/badges/gate?key=NNSTU%3ASecondLabWork&metric=code_smells)](https://sonarqube.com/dashboard/index/NNSTU%3ASecondLabWork)
-[![Duplications](https://sonarqube.com/api/badges/gate?key=NNSTU%3ASecondLabWork&metric=duplicated_lines_density)](https://sonarqube.com/dashboard/index/NNSTU%3ASecondLabWork)
 
 ## Prerequisites
 
