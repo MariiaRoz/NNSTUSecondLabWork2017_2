@@ -5,7 +5,7 @@ package org.nnstu.launcher.structures.immutable;
  *
  * @author Roman Khlebnov
  */
-public class ServerId {
+public final class ServerId {
     private static final ServerId EMPTY_INSTANCE = new ServerId(-1, "", "");
 
     private final int serverPort;

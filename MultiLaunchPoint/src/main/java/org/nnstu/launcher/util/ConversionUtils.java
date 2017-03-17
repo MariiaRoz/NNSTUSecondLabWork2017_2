@@ -3,6 +3,7 @@ package org.nnstu.launcher.util;
 import com.jasongoodwin.monads.Try;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.nnstu.contract.AbstractServer;
 import org.nnstu.launcher.structures.ServerDataModel;
@@ -33,7 +34,7 @@ public class ConversionUtils {
      * @return {@link Map} ready for work
      */
     public static Map<Integer, RunnableServerInstance> convertToRunnableInstances(Set<Class<? extends AbstractServer>> source) {
-        if (source == null || source.isEmpty()) {
+        if (CollectionUtils.isEmpty(source)) {
             return Collections.emptyMap();
         }
 
@@ -75,12 +76,14 @@ public class ConversionUtils {
             return ServerId.emptyServerId();
         }
 
-        AbstractServer instance = null;
+        AbstractServer instance;
 
         if (source instanceof AbstractServer) {
             instance = (AbstractServer) source;
         } else if (source instanceof RunnableServerInstance) {
             instance = ((RunnableServerInstance) source).getInstance();
+        } else {
+            return ServerId.emptyServerId();
         }
 
         if (instance == null) {
@@ -102,7 +105,7 @@ public class ConversionUtils {
      * @return {@link ObservableList} with data for {@link javafx.scene.control.TableView}
      */
     public static <T> ObservableList<ServerDataModel> convertToObservableList(Collection<T> sourceElements) {
-        if (sourceElements == null) {
+        if (CollectionUtils.isEmpty(sourceElements)) {
             return FXCollections.emptyObservableList();
         }
 
