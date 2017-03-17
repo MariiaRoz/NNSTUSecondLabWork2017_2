@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import org.nnstu.launcher.services.ServerLaunchService;
 import org.nnstu.launcher.services.ServerLookupService;
 import org.nnstu.launcher.structures.ServerDataModel;
 import org.nnstu.launcher.structures.ServerStatus;
@@ -32,7 +33,7 @@ public class MainLauncherUI extends Application {
     private static final String SECOND_COLUMN_ID = "Status";
     private static final String STAGE_TITLE = "Server Manager";
 
-    private ServerLookupService lookupService;
+    private ServerLaunchService serverLaunchService;
 
     /**
      * Application entry point
@@ -60,8 +61,10 @@ public class MainLauncherUI extends Application {
      */
     public void start(Stage primaryStage) throws Exception {
         // Data preparation
-        lookupService = new ServerLookupService(PACKAGE_NAME);
-        final ObservableList<ServerDataModel> serverIdsAndStates = ConversionUtils.convertToObservableList(lookupService.getAllServerInstances());
+        serverLaunchService = new ServerLaunchService(ServerLookupService.forPackage(PACKAGE_NAME));
+        final ObservableList<ServerDataModel> serverIdsAndStates = ConversionUtils.convertToObservableList(
+                serverLaunchService.getServerLookupService().getServerInstances().values()
+        );
 
         // Actual stage rendering
         Scene managerScene = new Scene(new Group(), 620, 455);
@@ -99,7 +102,7 @@ public class MainLauncherUI extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        lookupService.stopExecution();
+        serverLaunchService.stopExecution();
     }
 
     /**
@@ -163,13 +166,13 @@ public class MainLauncherUI extends Application {
         stopAll.setMinSize(200.0, 30.0);
 
         launchAll.setOnAction(event -> {
-            if (!lookupService.isLaunchingLocked()) {
+            if (!serverLaunchService.isLaunchingLocked()) {
                 try {
                     data.forEach(value -> value.setStatus(ServerStatus.LAUNCHED));
-                    log.debug(lookupService.simultaneousLaunch());
+                    serverLaunchService.simultaneousLaunch();
 
-                    launchAll.setDisable(lookupService.isLaunchingLocked());
-                    launchSelected.setDisable(lookupService.isLaunchingLocked());
+                    launchAll.setDisable(serverLaunchService.isLaunchingLocked());
+                    launchSelected.setDisable(serverLaunchService.isLaunchingLocked());
                 } catch (InstantiationException e) {
                     data.forEach(value -> value.setStatus(ServerStatus.STOPPED));
                     log.error(e);
@@ -178,7 +181,7 @@ public class MainLauncherUI extends Application {
         });
 
         launchSelected.setOnAction(event -> {
-            if (!lookupService.isLaunchingLocked()) {
+            if (!serverLaunchService.isLaunchingLocked()) {
                 ObservableList<ServerDataModel> selectedServers = serversTable.getSelectionModel().getSelectedItems();
 
                 try {
@@ -187,10 +190,10 @@ public class MainLauncherUI extends Application {
                     }
 
                     selectedServers.forEach(value -> value.setStatus(ServerStatus.LAUNCHED));
-                    log.debug(lookupService.pinpontLaunch(selectedServers.stream().mapToInt(server -> server.getServerId().getServerPort()).toArray()));
+                    serverLaunchService.pinpontLaunch(selectedServers.stream().mapToInt(server -> server.getServerId().getServerPort()).toArray());
 
-                    launchAll.setDisable(lookupService.isLaunchingLocked());
-                    launchSelected.setDisable(lookupService.isLaunchingLocked());
+                    launchAll.setDisable(serverLaunchService.isLaunchingLocked());
+                    launchSelected.setDisable(serverLaunchService.isLaunchingLocked());
                 } catch (InstantiationException e) {
                     selectedServers.forEach(value -> value.setStatus(ServerStatus.STOPPED));
                     log.error(e);
@@ -200,10 +203,10 @@ public class MainLauncherUI extends Application {
 
         stopAll.setOnAction(event -> {
             data.forEach(value -> value.setStatus(ServerStatus.STOPPED));
-            lookupService.stopExecution();
+            serverLaunchService.stopExecution();
 
-            launchAll.setDisable(lookupService.isLaunchingLocked());
-            launchSelected.setDisable(lookupService.isLaunchingLocked());
+            launchAll.setDisable(serverLaunchService.isLaunchingLocked());
+            launchSelected.setDisable(serverLaunchService.isLaunchingLocked());
         });
 
         return Arrays.asList(launchAll, launchSelected, stopAll);

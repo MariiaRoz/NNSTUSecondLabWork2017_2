@@ -1,6 +1,7 @@
 package org.nnstu.launcher.util;
 
 import com.jasongoodwin.monads.Try;
+import com.jasongoodwin.monads.TrySupplier;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.commons.collections4.CollectionUtils;
@@ -11,6 +12,7 @@ import org.nnstu.launcher.structures.ServerStatus;
 import org.nnstu.launcher.structures.immutable.RunnableServerInstance;
 import org.nnstu.launcher.structures.immutable.ServerId;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -151,6 +153,8 @@ public class ConversionUtils {
             throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         if (genericInstance == null) {
             throw new IllegalArgumentException("Cannot convert provided server to runnable server instance.");
+        } else if (Try.ofFailable((TrySupplier<Constructor>) genericInstance::getConstructor).orElse(null) == null) {
+            throw new IllegalArgumentException("You must have only default constructor in your class: " + genericInstance.toGenericString());
         }
 
         return new RunnableServerInstance(genericInstance.getConstructor().newInstance());
