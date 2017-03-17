@@ -1,6 +1,5 @@
 package org.nnstu.launcher.structures.immutable;
 
-import lombok.Value;
 import org.nnstu.contract.AbstractServer;
 import org.nnstu.contract.exceptions.ServerExitException;
 
@@ -9,9 +8,16 @@ import org.nnstu.contract.exceptions.ServerExitException;
  *
  * @author Roman Khlebnov
  */
-@Value
-public class RunnableServerInstance implements Runnable {
-    AbstractServer instance;
+public final class RunnableServerInstance implements Runnable {
+    private final AbstractServer instance;
+
+    public RunnableServerInstance(AbstractServer instance) {
+        this.instance = instance;
+    }
+
+    public AbstractServer getInstance() {
+        return instance;
+    }
 
     @Override
     public void run() {

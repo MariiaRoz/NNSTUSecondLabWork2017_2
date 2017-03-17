@@ -2,10 +2,6 @@ package org.nnstu.launcher.structures;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 import org.nnstu.launcher.structures.immutable.ServerId;
 
 /**
@@ -13,18 +9,19 @@ import org.nnstu.launcher.structures.immutable.ServerId;
  *
  * @author Roman Khlebnov
  */
-@Getter
-@EqualsAndHashCode
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ServerDataModel implements Comparable<ServerDataModel> {
-    ServerId serverId;
-    SimpleStringProperty info;
-    SimpleStringProperty status;
+    private final ServerId serverId;
+    private final SimpleStringProperty info;
+    private final SimpleStringProperty status;
 
     public ServerDataModel(ServerId info, ServerStatus status) {
         this.serverId = info;
         this.info = new SimpleStringProperty(info.toString());
         this.status = new SimpleStringProperty(status.getValue());
+    }
+
+    public ServerId getServerId() {
+        return serverId;
     }
 
     public String getInfo() {
@@ -66,5 +63,30 @@ public class ServerDataModel implements Comparable<ServerDataModel> {
     @Override
     public int compareTo(ServerDataModel o) {
         return this.getServerId().getModuleName().compareTo(o.getServerId().getModuleName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ServerDataModel that = (ServerDataModel) o;
+
+        return getServerId().equals(that.getServerId()) &&
+                getInfo().equals(that.getInfo()) &&
+                getStatus().equals(that.getStatus());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getServerId().hashCode();
+        result = 31 * result + getInfo().hashCode();
+        result = 31 * result + getStatus().hashCode();
+        return result;
     }
 }
