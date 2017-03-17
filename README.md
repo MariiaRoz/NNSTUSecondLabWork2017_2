@@ -4,8 +4,8 @@ This project is used to create multiple implementations of the client-server cha
 
 ## Current Services Status
 
-[![Build Status](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2.svg?branch=master)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2) 
-[![Bugs](https://sonarqube.com/api/badges/gate?key=NNSTU%3ASecondLabWork&metric=bugs)](https://sonarqube.com/dashboard/index/NNSTU%3ASecondLabWork)
+[![Travis](https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square)](https://travis-ci.org/SuppieRK/NNSTUSecondLabWork2017_2)
+[![Bugs](https://sonarqube.com/api/badges/gate?key=NNSTU%3ASecondLabWork&metric=bugs&template=FLAT)](https://sonarqube.com/dashboard/index/NNSTU%3ASecondLabWork)
 
 ## Prerequisites
 
