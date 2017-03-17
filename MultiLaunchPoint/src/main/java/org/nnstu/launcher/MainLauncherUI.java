@@ -10,7 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import lombok.extern.log4j.Log4j;
+import org.apache.log4j.Logger;
 import org.nnstu.launcher.services.ServerLookupService;
 import org.nnstu.launcher.structures.ServerDataModel;
 import org.nnstu.launcher.structures.ServerStatus;
@@ -24,8 +24,9 @@ import java.util.List;
  *
  * @author Roman Khlebnov
  */
-@Log4j
 public class MainLauncherUI extends Application {
+    private static final Logger log = Logger.getLogger(MainLauncherUI.class);
+
     private static final String PACKAGE_NAME = "org";
     private static final String FIRST_COLUMN_ID = "Server";
     private static final String SECOND_COLUMN_ID = "Status";

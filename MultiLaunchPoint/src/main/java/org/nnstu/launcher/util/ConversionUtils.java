@@ -3,7 +3,7 @@ package org.nnstu.launcher.util;
 import com.jasongoodwin.monads.Try;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lombok.extern.log4j.Log4j;
+import org.apache.log4j.Logger;
 import org.nnstu.contract.AbstractServer;
 import org.nnstu.launcher.structures.ServerDataModel;
 import org.nnstu.launcher.structures.ServerStatus;
@@ -20,8 +20,9 @@ import java.util.stream.Stream;
  *
  * @author Roman Khlebnov
  */
-@Log4j
 public class ConversionUtils {
+    private static final Logger log = Logger.getLogger(ConversionUtils.class);
+
     private ConversionUtils() {
     }
 

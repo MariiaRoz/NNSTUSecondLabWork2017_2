@@ -1,6 +1,6 @@
 package org.nnstu.launcher.services;
 
-import lombok.extern.log4j.Log4j;
+import org.apache.log4j.Logger;
 import org.nnstu.contract.AbstractServer;
 import org.nnstu.launcher.structures.immutable.RunnableServerInstance;
 import org.nnstu.launcher.util.ConversionUtils;
@@ -21,8 +21,9 @@ import java.util.stream.Collectors;
  *
  * @author Roman Khlebnov
  */
-@Log4j
 public class ServerLookupService {
+    private static final Logger log = Logger.getLogger(ServerLookupService.class);
+
     private final Map<Integer, RunnableServerInstance> servers = new HashMap<>();
     private ExecutorService executorService = null;
 
