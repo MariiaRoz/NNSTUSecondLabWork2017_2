@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import org.nnstu.launcher.structures.immutable.ServerId;
 
+import java.util.Objects;
+
 /**
  * {@link ObservableList} information data model, implementing {@link Comparable} for better navigation via UI
  *
@@ -15,6 +17,9 @@ public class ServerDataModel implements Comparable<ServerDataModel> {
     private final SimpleStringProperty status;
 
     public ServerDataModel(ServerId info, ServerStatus status) {
+        Objects.requireNonNull(info);
+        Objects.requireNonNull(status);
+
         this.serverId = info;
         this.info = new SimpleStringProperty(info.toString());
         this.status = new SimpleStringProperty(status.getValue());

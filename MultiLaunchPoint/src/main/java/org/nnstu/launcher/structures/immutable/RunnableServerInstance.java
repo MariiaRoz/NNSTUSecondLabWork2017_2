@@ -3,6 +3,8 @@ package org.nnstu.launcher.structures.immutable;
 import org.nnstu.contract.AbstractServer;
 import org.nnstu.contract.exceptions.ServerExitException;
 
+import java.util.Objects;
+
 /**
  * This immutable class is used for representing single server instance running on it's own thread
  *
@@ -12,6 +14,8 @@ public final class RunnableServerInstance implements Runnable {
     private final AbstractServer instance;
 
     public RunnableServerInstance(AbstractServer instance) {
+        Objects.requireNonNull(instance);
+
         this.instance = instance;
     }
 
@@ -21,14 +25,10 @@ public final class RunnableServerInstance implements Runnable {
 
     @Override
     public void run() {
-        if (instance != null) {
-            instance.launchServer();
-        }
+        instance.launchServer();
     }
 
     public void stop() throws ServerExitException {
-        if (instance != null) {
-            instance.stopServer();
-        }
+        instance.stopServer();
     }
 }

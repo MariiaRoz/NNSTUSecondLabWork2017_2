@@ -42,7 +42,7 @@ public class ServerLaunchService {
      * @param ports {@link Integer} ports of the requested servers
      * @return {@link String} that contains all events occurred during launch phase
      */
-    public void pinpontLaunch(int... ports) throws InstantiationException {
+    public void pinpointLaunch(int... ports) throws InstantiationException {
         launch(LaunchMode.PINPOINT, ports);
     }
 

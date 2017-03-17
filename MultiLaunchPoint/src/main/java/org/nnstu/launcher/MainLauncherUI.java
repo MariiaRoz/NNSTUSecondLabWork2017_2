@@ -190,7 +190,7 @@ public class MainLauncherUI extends Application {
                     }
 
                     selectedServers.forEach(value -> value.setStatus(ServerStatus.LAUNCHED));
-                    serverLaunchService.pinpontLaunch(selectedServers.stream().mapToInt(server -> server.getServerId().getServerPort()).toArray());
+                    serverLaunchService.pinpointLaunch(selectedServers.stream().mapToInt(server -> server.getServerId().getServerPort()).toArray());
 
                     launchAll.setDisable(serverLaunchService.isLaunchingLocked());
                     launchSelected.setDisable(serverLaunchService.isLaunchingLocked());

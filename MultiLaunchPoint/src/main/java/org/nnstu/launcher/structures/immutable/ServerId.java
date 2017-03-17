@@ -1,5 +1,7 @@
 package org.nnstu.launcher.structures.immutable;
 
+import java.util.Objects;
+
 /**
  * Small immutable POJO for server identification
  *
@@ -13,6 +15,9 @@ public final class ServerId {
     private final String moduleName;
 
     public ServerId(int serverPort, String className, String moduleName) {
+        Objects.requireNonNull(className);
+        Objects.requireNonNull(moduleName);
+
         this.serverPort = serverPort;
         this.className = className;
         this.moduleName = moduleName;
