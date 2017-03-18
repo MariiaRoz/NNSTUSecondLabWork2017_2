@@ -68,10 +68,10 @@ To start working under your project, you need to:
 * **Korotaev Ilya**
 
 **Project 5**
-* **Trubkin Nikita** - *Team Lead*
-* **Vermenik Maxim**
-* **Kuznetsov Andrei**
-* **Elizarova Yulia**
+* **Trubkin Nikita** - *Team Lead* - Database Designer
+* **Vermenik Maxim** - UI Designer
+* **Kuznetsov Andrei** - Server Designer
+* **Elizarova Yulia** - Client Designer
 
 **Project 6**
 * **Lemeshevskiy Mark** - *Team Lead*
