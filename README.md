@@ -50,10 +50,10 @@ To start working under your project, you need to:
 * **Bogatov Egor**
 
 **Project 2**
-* **Zaborin Stanislav** - *Team Lead*
-* **Chistyakova Yulia**
-* **Rojkova Mariya**
-* **Popov Alexander**
+* **Zaborin Stanislav** - *Team Lead* - Database Designer
+* **Chistyakova Yulia** - UI Designer
+* **Rojkova Mariya** - Server Designer
+* **Popov Alexander** - Client Designer
 
 **Project 3**
 * **Chupreev David** - *Team Lead*
