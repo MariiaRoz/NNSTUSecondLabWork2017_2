@@ -62,10 +62,10 @@ To start working under your project, you need to:
 * **Baranova Alena**
 
 **Project 4**
-* **Maslennikov Alexander** - *Team Lead*
-* **Erofeeva Anastasiya**
-* **Sekachkin Mikhail**
-* **Korotaev Ilya**
+* **Maslennikov Alexander** - *Team Lead* - Client Designer
+* **Erofeeva Anastasiya** - UI Designer
+* **Sekachkin Mikhail** - Database Designer
+* **Korotaev Ilya** - Server Designer
 
 **Project 5**
 * **Trubkin Nikita** - *Team Lead* - Database Designer
