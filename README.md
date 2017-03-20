@@ -74,8 +74,8 @@ To start working under your project, you need to:
 * **Elizarova Yulia** - Client Designer
 
 **Project 6**
-* **Lemeshevskiy Mark** - *Team Lead*
-* **Koryachikhina Anastasiya**
-* **Sannikov Alexey**
-* **Umnyagin Ivan**
-* **Gordeev Maxim**
+* **Lemeshevskiy Mark** - *Team Lead* - Database Designer
+* **Koryachikhina Anastasiya** - Client Designer
+* **Sannikov Alexey** - UI Designer
+* **Umnyagin Ivan** - UI Designer
+* **Gordeev Maxim** - Server Designer
