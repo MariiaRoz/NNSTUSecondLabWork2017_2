@@ -43,11 +43,11 @@ To start working under your project, you need to:
 ## Module Authors
 
 **Project 1**
-* **Komissarov Kirill** - *Team Lead*
-* **Kamysheva Tatyana**
-* **Korobkova Ekaterina**
-* **Syrchin Vladislav**
-* **Bogatov Egor**
+* **Komissarov Kirill** - *Team Lead* - Database Designer
+* **Kamysheva Tatyana** - UI Designer
+* **Korobkova Ekaterina** - UI Designer
+* **Syrchin Vladislav** - Server Designer
+* **Bogatov Egor** - Client Designer
 
 **Project 2**
 * **Zaborin Stanislav** - *Team Lead* - Database Designer
