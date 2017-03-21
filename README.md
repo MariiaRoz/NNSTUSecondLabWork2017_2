@@ -56,10 +56,10 @@ To start working under your project, you need to:
 * **Popov Alexander** - Client Designer
 
 **Project 3**
-* **Chupreev David** - *Team Lead*
-* **Sorshneva Marina**
-* **Kalinnikov Sergey**
-* **Baranova Alena**
+* **Chupreev David** - *Team Lead* - Database Designer
+* **Sorshneva Marina** - Client Designer
+* **Kalinnikov Sergey** - Server Designer
+* **Baranova Alena** - UI Designer
 
 **Project 4**
 * **Maslennikov Alexander** - *Team Lead* - Client Designer
