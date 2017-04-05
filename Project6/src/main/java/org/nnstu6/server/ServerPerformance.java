@@ -62,5 +62,4 @@ public interface ServerPerformance extends Remote {
      */
     boolean registration(String login, String password) throws RemoteException;
 
-
 }
