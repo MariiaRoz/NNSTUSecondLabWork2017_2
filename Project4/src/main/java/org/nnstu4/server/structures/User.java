@@ -42,7 +42,7 @@ public final class User implements Serializable {
 
         this.username = username;
         this.password = password;
-        this.dialogueKeys = (LinkedList<String>) dialogueKeys;
+        this.dialogueKeys = new LinkedList<>(dialogueKeys);
     }
 
     /**

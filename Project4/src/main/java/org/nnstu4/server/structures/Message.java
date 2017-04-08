@@ -21,12 +21,12 @@ public final class Message implements Serializable {
      */
     public Message(String text, User user, long time) {
         if (text == null) {
-            throw new IllegalArgumentException("Message text is NULL");
-        } else if (text.length() == 0) {
-            throw new IllegalArgumentException("Message text length is 0");
+            throw new NullPointerException("Message text is NULL");
+        } else if (text.isEmpty()) {
+            throw new IllegalArgumentException("Message text is empty");
         }
         if (user == null) {
-            throw new IllegalArgumentException("User is NULL");
+            throw new NullPointerException("User is NULL");
         }
         if (time <= 0) {
             throw new IllegalArgumentException("Message date is incorrect");
@@ -47,7 +47,7 @@ public final class Message implements Serializable {
     }
 
     /**
-     * Gets user who sent the message
+     * Gets {@link User} who sent the message
      *
      * @return {@link User} who sent the message
      */
@@ -56,7 +56,7 @@ public final class Message implements Serializable {
     }
 
     /**
-     * Gets the date when the message's been sent
+     * Gets the {@link Long}, representing time when the message's been sent
      *
      * @return {@link Long}, representing time when the message's been sent
      */

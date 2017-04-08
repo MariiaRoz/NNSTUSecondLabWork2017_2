@@ -16,36 +16,11 @@ public class Dialogue implements Serializable {
 
     /**
      * Constructor of the class
-     * that creates a new dialogue with no messages
-     *
-     * @param initialUsers {@link Collection}, containing {@link User}s to be added in the new dialogue
-     * @param dialogueKey  Key of the new dialogue
-     */
-    public Dialogue(Collection<User> initialUsers, String dialogueKey) {
-        if (initialUsers == null) {
-            throw new NullPointerException("initialUsers is null");
-        } else if (initialUsers.isEmpty()) {
-            throw new IllegalArgumentException("initialUsers is empty");
-        }
-
-        if (dialogueKey == null) {
-            throw new NullPointerException("dialogueKey is null");
-        } else if (dialogueKey.isEmpty()) {
-            throw new IllegalArgumentException("dialogueKey is empty");
-        }
-
-        users = new LinkedList<>(initialUsers);
-        this.dialogueKey = dialogueKey;
-        chatHistory = new LinkedList<>();
-    }
-
-    /**
-     * Constructor of the class
      * that creates already existing dialogue with chat history
      *
      * @param users       {@link Collection} of {@link User}s in the dialogue
      * @param dialogueKey {@link String}, representing dialogue key
-     * @param chatHistory {@link Collection} of {@link Message}s in thid dialogue
+     * @param chatHistory {@link Collection} of {@link Message}s in this dialogue. May be empty
      */
     public Dialogue(Collection<User> users, String dialogueKey, Collection<Message> chatHistory) {
         if (users == null) {
@@ -62,13 +37,15 @@ public class Dialogue implements Serializable {
 
         if (chatHistory == null) {
             throw new NullPointerException("chatHistory is null");
-        } else if (chatHistory.isEmpty()) {
-            throw new IllegalArgumentException("chatHistory is empty");
         }
 
         this.users = new LinkedList<>(users);
         this.dialogueKey = dialogueKey;
-        this.chatHistory = new LinkedList<>(chatHistory);
+        if (chatHistory.isEmpty()) {
+            this.chatHistory = new LinkedList<>();
+        } else {
+            this.chatHistory = new LinkedList<>(chatHistory);
+        }
     }
 
     /**
