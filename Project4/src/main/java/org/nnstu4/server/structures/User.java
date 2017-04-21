@@ -1,8 +1,12 @@
 package org.nnstu4.server.structures;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -23,20 +27,14 @@ public final class User implements Serializable {
      * @param password     {@link UUID}, representing hashed user password
      * @param dialogueKeys {@link Collection} of {@link String} representing keys of dialogues that the user is in
      */
-    public User(String username, UUID password, Collection<String> dialogueKeys) {
-        if (username == null) {
-            throw new NullPointerException(UserErrorMessage.NULL_USERNAME.getMessage());
-        } else if (username.isEmpty()) {
+    public User(String username, UUID password, Collection<String> dialogueKeys) throws IllegalArgumentException {
+        if (StringUtils.isEmpty(username)) {
             throw new IllegalArgumentException(UserErrorMessage.EMPTY_USERNAME.getMessage());
         }
 
-        if (password == null) {
-            throw new NullPointerException(UserErrorMessage.NULL_PASSWORD.getMessage());
-        }
+        Objects.requireNonNull(password);
 
-        if (dialogueKeys == null) {
-            throw new NullPointerException(UserErrorMessage.NULL_DIALOGUE_KEYS.getMessage());
-        } else if (dialogueKeys.isEmpty()) {
+        if (CollectionUtils.isEmpty(dialogueKeys)) {
             throw new IllegalArgumentException(UserErrorMessage.EMPTY_DIALOGUE_KEYS.getMessage());
         }
 
@@ -61,9 +59,7 @@ public final class User implements Serializable {
      * @return {@link User}, that is copying this object with new {@link User#dialogueKeys}
      */
     public User setDialogueKeys(Collection<String> dialogueKeys) {
-        if (dialogueKeys == null) {
-            throw new NullPointerException(UserErrorMessage.NULL_DIALOGUE_KEYS.getMessage());
-        } else if (dialogueKeys.isEmpty()) {
+        if (CollectionUtils.isEmpty(dialogueKeys)) {
             throw new IllegalArgumentException(UserErrorMessage.EMPTY_DIALOGUE_KEYS.getMessage());
         }
 
@@ -86,9 +82,7 @@ public final class User implements Serializable {
      * @return {@link User}, that is copying this object with new {@link User#dialogueKeys}
      */
     public User setUsername(String username) {
-        if (username == null) {
-            throw new NullPointerException(UserErrorMessage.NULL_USERNAME.getMessage());
-        } else if (username.isEmpty()) {
+        if (StringUtils.isEmpty(username)) {
             throw new IllegalArgumentException(UserErrorMessage.EMPTY_USERNAME.getMessage());
         }
 
@@ -111,9 +105,7 @@ public final class User implements Serializable {
      * @return {@link User}, that is copying this object with new {@link User#password}
      */
     public User setPassword(UUID password) {
-        if (password == null) {
-            throw new NullPointerException(UserErrorMessage.NULL_PASSWORD.getMessage());
-        }
+        Objects.requireNonNull(password);
 
         return new User(username, password, dialogueKeys);
     }
@@ -122,10 +114,7 @@ public final class User implements Serializable {
      * Enum determining exception messages that may be raised in {@link User} class
      */
     private enum UserErrorMessage implements Serializable {
-        NULL_USERNAME("Username is null"),
         EMPTY_USERNAME("Username is empty"),
-        NULL_PASSWORD("Password is null"),
-        NULL_DIALOGUE_KEYS("DialogueKeys is null"),
         EMPTY_DIALOGUE_KEYS("DialogueKeys is empty");
 
         private final String message;

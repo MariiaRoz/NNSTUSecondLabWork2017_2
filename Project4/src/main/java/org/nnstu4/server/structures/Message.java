@@ -1,6 +1,9 @@
 package org.nnstu4.server.structures;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents a chat message.
@@ -19,15 +22,13 @@ public final class Message implements Serializable {
      * @param user {@link String}, representing user who sent the messageg
      * @param time {@link Long}, representing time when the message's been sent
      */
-    public Message(String text, User user, long time) {
-        if (text == null) {
-            throw new NullPointerException("Message text is NULL");
-        } else if (text.isEmpty()) {
+    public Message(String text, User user, long time) throws IllegalArgumentException {
+        if (StringUtils.isEmpty(text)) {
             throw new IllegalArgumentException("Message text is empty");
         }
-        if (user == null) {
-            throw new NullPointerException("User is NULL");
-        }
+
+        Objects.requireNonNull(user);
+
         if (time <= 0) {
             throw new IllegalArgumentException("Message date is incorrect");
         }

@@ -6,6 +6,7 @@ import org.nnstu4.server.structures.Message;
 import org.nnstu4.server.structures.User;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ public class DialogueUnitTest {
     private final Message validMessage = new Message("Text", validUser, 1L);
     private final String validKey = "1";
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void doNullUsersTest() {
         assertEquals(null, new Dialogue(
                 null,
@@ -27,48 +28,61 @@ public class DialogueUnitTest {
     @Test(expected = IllegalArgumentException.class)
     public void doEmptyUsersTest() {
         assertEquals(null, new Dialogue(
-                new LinkedList<>(),
+                new HashMap<>(),
                 validKey,
                 new LinkedList<>(Arrays.asList(validMessage, validMessage))));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void doNullKeyTest() {
+        HashMap<Integer, User> users = new HashMap<>();
+        users.put(1, validUser);
+        users.put(2, validUser);
         assertEquals(null, new Dialogue(
-                new LinkedList<>(Arrays.asList(validUser, validUser)),
+                users,
                 null,
                 new LinkedList<>(Arrays.asList(validMessage, validMessage))));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void doEmptyKeyTest() {
+        HashMap<Integer, User> users = new HashMap<>();
+        users.put(1, validUser);
+        users.put(2, validUser);
         assertEquals(null, new Dialogue(
-                new LinkedList<>(Arrays.asList(validUser, validUser)),
+                users,
                 "",
                 new LinkedList<>(Arrays.asList(validMessage, validMessage))));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void doNullChatHistoryTest() {
-        assertEquals(null, new Dialogue(
-                new LinkedList<>(Arrays.asList(validUser, validUser)),
+        HashMap<Integer, User> users = new HashMap<>();
+        users.put(1, validUser);
+        users.put(2, validUser);
+        new Dialogue(
+                users,
                 validKey,
-                null));
+                null);
     }
 
     @Test
     public void doValidEmptyHistoryTest() {
+        HashMap<Integer, User> users = new HashMap<>();
+        users.put(1, validUser);
+        users.put(2, validUser);
         LinkedList<Message> emptyList = new LinkedList<>();
-        new Dialogue(new LinkedList<>(
-                Arrays.asList(validUser, validUser)),
+        new Dialogue(users,
                 validKey,
                 emptyList);
     }
 
     @Test
     public void doValidNotEmptyChatHistoryTest() {
-        new Dialogue(new LinkedList<>(
-                Arrays.asList(validUser, validUser)),
+        HashMap<Integer, User> users = new HashMap<>();
+        users.put(1, validUser);
+        users.put(2, validUser);
+        new Dialogue(users,
                 validKey,
                 new LinkedList<>(Arrays.asList(validMessage, validMessage)));
     }

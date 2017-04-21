@@ -1,8 +1,11 @@
 package org.nnstu4.server.structures;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Class representing a chat dialogue
@@ -11,41 +14,34 @@ import java.util.LinkedList;
  */
 public class Dialogue implements Serializable {
     private final String dialogueKey;
-    private LinkedList<User> users;
+    private HashMap<Integer, User> users;
     private LinkedList<Message> chatHistory;
 
     /**
      * Constructor of the class
      * that creates already existing dialogue with chat history
      *
-     * @param users       {@link Collection} of {@link User}s in the dialogue
+     * @param users       {@link Map} of pairs {@link Integer} ID : {@link User} user in the dialogue
      * @param dialogueKey {@link String}, representing dialogue key
      * @param chatHistory {@link Collection} of {@link Message}s in this dialogue. May be empty
      */
-    public Dialogue(Collection<User> users, String dialogueKey, Collection<Message> chatHistory) {
-        if (users == null) {
-            throw new NullPointerException("initialUsers is null");
-        } else if (users.isEmpty()) {
+    public Dialogue(Map<Integer, User> users, String dialogueKey, Collection<Message> chatHistory) throws IllegalArgumentException {
+        if (MapUtils.isEmpty(users)) {
             throw new IllegalArgumentException("initialUsers is empty");
         }
 
-        if (dialogueKey == null) {
-            throw new NullPointerException("dialogueKey is null");
-        } else if (dialogueKey.isEmpty()) {
+        if (StringUtils.isEmpty(dialogueKey)) {
             throw new IllegalArgumentException("dialogueKey is empty");
         }
 
-        if (chatHistory == null) {
-            throw new NullPointerException("chatHistory is null");
-        }
-
-        this.users = new LinkedList<>(users);
-        this.dialogueKey = dialogueKey;
-        if (chatHistory.isEmpty()) {
+        if (CollectionUtils.isEmpty(chatHistory)) {
             this.chatHistory = new LinkedList<>();
         } else {
             this.chatHistory = new LinkedList<>(chatHistory);
         }
+
+        this.users = new HashMap<>(users);
+        this.dialogueKey = dialogueKey;
     }
 
     /**
@@ -54,9 +50,7 @@ public class Dialogue implements Serializable {
      * @param message {@link Message} to be added
      */
     public void addMessage(Message message) {
-        if (message == null) {
-            throw new NullPointerException("Message is null");
-        }
+        Objects.requireNonNull(message);
         chatHistory.add(message);
     }
 
@@ -66,12 +60,9 @@ public class Dialogue implements Serializable {
      * @param messages {@link Collection} of {@link Message}s to be added
      */
     public void addMultipleMessages(Collection<Message> messages) {
-        if (messages == null) {
-            throw new NullPointerException("Messages is null");
-        } else if (messages.isEmpty()) {
+        if (CollectionUtils.isEmpty(messages)) {
             throw new IllegalArgumentException("Messages is empty");
         }
-
         chatHistory.addAll(messages);
     }
 
@@ -99,6 +90,9 @@ public class Dialogue implements Serializable {
      * @param history {@link Collection} of the {@link Message}s to be set as a {@link Dialogue#chatHistory}
      */
     public void setChatHistory(Collection<Message> history) {
+        if (CollectionUtils.isEmpty(history)) {
+            throw new IllegalArgumentException("New history is empty");
+        }
         chatHistory.clear();
         chatHistory.addAll(history);
     }
@@ -108,7 +102,7 @@ public class Dialogue implements Serializable {
      *
      * @return {@link Collection} of {@link User}s that are in the dialogue
      */
-    public Collection<User> getUsers() {
+    public Map<Integer, User> getUsers() {
         return users;
     }
 }

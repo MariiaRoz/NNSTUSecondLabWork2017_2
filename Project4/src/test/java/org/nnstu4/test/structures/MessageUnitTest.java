@@ -16,7 +16,7 @@ public class MessageUnitTest {
     private final User validUser = new User("Username", UUID.randomUUID(), validKeysForUser);
     private final long validTime = 1L;
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void doNullStringTest() {
         assertEquals(null, new Message(null, validUser, validTime));
     }

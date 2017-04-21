@@ -15,7 +15,7 @@ public class UserUnitTest {
     private final LinkedList<String> validKeys = new LinkedList<>(Arrays.asList("1", "2", "3"));
     private final User validInstance = new User(validUsername, validPassword, validKeys);
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void doNullStringTest() {
         assertEquals(null, new User(null, validPassword, validKeys));
     }
@@ -30,7 +30,7 @@ public class UserUnitTest {
         assertEquals(null, new User(validUsername, null, validKeys));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void doNullDialogueKeysTest() {
         assertEquals(null, new User(validUsername, validPassword, null));
     }
