@@ -98,9 +98,9 @@ public class Dialogue implements Serializable {
     }
 
     /**
-     * Gets a {@link Collection} of {@link User}s that are in the dialogue
+     * Gets a {@link Map} of pairs {@link Integer} ID : {@link User} user in the dialogue
      *
-     * @return {@link Collection} of {@link User}s that are in the dialogue
+     * @return {@link Map} of pairs {@link Integer} ID : {@link User} user in the dialogue
      */
     public Map<Integer, User> getUsers() {
         return users;
