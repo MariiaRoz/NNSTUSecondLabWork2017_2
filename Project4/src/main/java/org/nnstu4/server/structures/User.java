@@ -2,6 +2,7 @@ package org.nnstu4.server.structures;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -19,6 +20,7 @@ public final class User implements Serializable {
     private final String username;
     private final UUID password;
     private final LinkedList<String> dialogueKeys;
+    private final transient Logger logger = Logger.getLogger(getClass());
 
     /**
      * Constructor of the class
@@ -32,7 +34,7 @@ public final class User implements Serializable {
             throw new IllegalArgumentException(UserErrorMessage.EMPTY_USERNAME.getMessage());
         }
 
-        Objects.requireNonNull(password);
+        Objects.requireNonNull(password, "Password is null");
 
         if (CollectionUtils.isEmpty(dialogueKeys)) {
             throw new IllegalArgumentException(UserErrorMessage.EMPTY_DIALOGUE_KEYS.getMessage());
@@ -59,11 +61,12 @@ public final class User implements Serializable {
      * @return {@link User}, that is copying this object with new {@link User#dialogueKeys}
      */
     public User setDialogueKeys(Collection<String> dialogueKeys) {
-        if (CollectionUtils.isEmpty(dialogueKeys)) {
-            throw new IllegalArgumentException(UserErrorMessage.EMPTY_DIALOGUE_KEYS.getMessage());
+        if (CollectionUtils.isNotEmpty(dialogueKeys)) {
+            return new User(username, password, dialogueKeys);
+        } else {
+            logger.warn("dialogueKeys is empty");
+            return this;
         }
-
-        return new User(username, password, dialogueKeys);
     }
 
     /**
@@ -82,11 +85,12 @@ public final class User implements Serializable {
      * @return {@link User}, that is copying this object with new {@link User#dialogueKeys}
      */
     public User setUsername(String username) {
-        if (StringUtils.isEmpty(username)) {
-            throw new IllegalArgumentException(UserErrorMessage.EMPTY_USERNAME.getMessage());
+        if (StringUtils.isNotEmpty(username)) {
+            return new User(username, password, dialogueKeys);
+        } else {
+            logger.warn("username is empty");
+            return this;
         }
-
-        return new User(username, password, dialogueKeys);
     }
 
     /**
@@ -105,7 +109,7 @@ public final class User implements Serializable {
      * @return {@link User}, that is copying this object with new {@link User#password}
      */
     public User setPassword(UUID password) {
-        Objects.requireNonNull(password);
+        Objects.requireNonNull(password, "Password is null");
 
         return new User(username, password, dialogueKeys);
     }
@@ -113,7 +117,7 @@ public final class User implements Serializable {
     /**
      * Enum determining exception messages that may be raised in {@link User} class
      */
-    private enum UserErrorMessage implements Serializable {
+    public enum UserErrorMessage {
         EMPTY_USERNAME("Username is empty"),
         EMPTY_DIALOGUE_KEYS("DialogueKeys is empty");
 

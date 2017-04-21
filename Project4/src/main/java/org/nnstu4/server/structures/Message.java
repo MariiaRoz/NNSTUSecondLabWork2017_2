@@ -27,7 +27,7 @@ public final class Message implements Serializable {
             throw new IllegalArgumentException("Message text is empty");
         }
 
-        Objects.requireNonNull(user);
+        Objects.requireNonNull(user, "User is null");
 
         if (time <= 0) {
             throw new IllegalArgumentException("Message date is incorrect");

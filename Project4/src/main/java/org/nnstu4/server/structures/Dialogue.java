@@ -3,6 +3,7 @@ package org.nnstu4.server.structures;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.*;
@@ -14,6 +15,7 @@ import java.util.*;
  */
 public class Dialogue implements Serializable {
     private final String dialogueKey;
+    private final transient Logger logger = Logger.getLogger(getClass());
     private HashMap<Integer, User> users;
     private LinkedList<Message> chatHistory;
 
@@ -50,7 +52,7 @@ public class Dialogue implements Serializable {
      * @param message {@link Message} to be added
      */
     public void addMessage(Message message) {
-        Objects.requireNonNull(message);
+        Objects.requireNonNull(message, "Message is null");
         chatHistory.add(message);
     }
 
@@ -60,10 +62,11 @@ public class Dialogue implements Serializable {
      * @param messages {@link Collection} of {@link Message}s to be added
      */
     public void addMultipleMessages(Collection<Message> messages) {
-        if (CollectionUtils.isEmpty(messages)) {
-            throw new IllegalArgumentException("Messages is empty");
+        if (CollectionUtils.isNotEmpty(messages)) {
+            chatHistory.addAll(messages);
+        } else {
+            logger.warn("Messages is null");
         }
-        chatHistory.addAll(messages);
     }
 
     /**
@@ -90,11 +93,12 @@ public class Dialogue implements Serializable {
      * @param history {@link Collection} of the {@link Message}s to be set as a {@link Dialogue#chatHistory}
      */
     public void setChatHistory(Collection<Message> history) {
-        if (CollectionUtils.isEmpty(history)) {
-            throw new IllegalArgumentException("New history is empty");
+        if (CollectionUtils.isNotEmpty(history)) {
+            chatHistory.clear();
+            chatHistory.addAll(history);
+        } else {
+            logger.warn("history is empty");
         }
-        chatHistory.clear();
-        chatHistory.addAll(history);
     }
 
     /**
