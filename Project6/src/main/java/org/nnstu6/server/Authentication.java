@@ -14,7 +14,7 @@ public class Authentication implements Serializable {
             throw new IllegalArgumentException("Login is null");
         }
         if (password == null) {
-            throw new NullPointerException("Password is null");
+            throw new NullPointerException("Password is null!");
         }
         this.login = login;
         this.password = password;

@@ -25,7 +25,7 @@ public class Messages implements Serializable {
             throw new IllegalArgumentException("Time is not correct!");
         }
         if (StringUtils.isEmpty(sender)) {
-            throw new IllegalArgumentException("Sender is empty!");
+            throw new IllegalArgumentException("Sender is empty");
 
         }
 
