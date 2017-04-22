@@ -53,7 +53,7 @@ public class Messages implements Serializable {
     }
 
     /**
-     * representing time when the message's been sent
+     * Representing time when the message's been sent
      *
      * @return time
      */

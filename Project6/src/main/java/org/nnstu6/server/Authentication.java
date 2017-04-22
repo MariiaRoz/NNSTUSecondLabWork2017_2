@@ -21,7 +21,7 @@ public class Authentication implements Serializable {
     }
 
     /**
-     * Gets user's login
+     * Gets user's name
      *
      * @return login
      */
