@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.nnstu4.server.structures.ReplyMessage;
 import org.nnstu4.server.structures.RequestStatus;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -20,14 +21,14 @@ public interface ClientService {
      * @param isNew    {@link Boolean} flag determining whether to create a record of this user or such record already exists
      * @return {@link RequestStatus} containing info about whether the request was successful or there were errors
      */
-    RequestStatus authUser(String username, String password, boolean isNew);
+    RequestStatus authUser(String username, String password, boolean isNew) throws RemoteException;
 
     /**
      * Sends a request to get dialogue keys and users that are in there for authorized user
      *
      * @return {@link List} of {@link Integer}s containing dialogue keys and {@link List}s of {@link String}s containing users that are in each dialogue
      */
-    List<Pair<Integer, List<String>>> getDialogueKeys();
+    List<Pair<Integer, List<String>>> getDialogueKeys() throws RemoteException;
 
     /**
      * Sends a request to get all the messages of specific dialogue
@@ -36,7 +37,7 @@ public interface ClientService {
      * @param dialogueKey {@link Integer} containing key of the dialogue to get messages for
      * @return {@link List} of {@link ReplyMessage}s containing chat history of the dialogue
      */
-    List<ReplyMessage> getDialogueMessages(int dialogueKey);
+    List<ReplyMessage> getDialogueMessages(int dialogueKey) throws RemoteException;
 
     /**
      * Sends a request to add the message into the specific dialogue
@@ -45,6 +46,6 @@ public interface ClientService {
      * @param dialogueKey {@link Integer} containing key of the dialogue to add message into
      * @return {@link RequestStatus} containing info about whether the request was successful or there were errors
      */
-    RequestStatus sendMessage(String msgText, int dialogueKey);
+    RequestStatus sendMessage(String msgText, int dialogueKey) throws RemoteException;
 
 }

@@ -6,7 +6,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Class representing a message for passing info
- * <p>
  * from server to client
  */
 public final class ReplyMessage extends AbstractMessage {
