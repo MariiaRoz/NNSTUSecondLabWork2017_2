@@ -1,11 +1,12 @@
 package org.nnstu4.client.core;
 
-import org.apache.commons.lang3.tuple.Pair;
+import com.google.common.collect.Multimap;
 import org.nnstu4.server.structures.ReplyMessage;
 import org.nnstu4.server.structures.RequestStatus;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface that is used for managing client from GUI
@@ -21,23 +22,23 @@ public interface ClientService {
      * @param isNew    {@link Boolean} flag determining whether to create a record of this user or such record already exists
      * @return {@link RequestStatus} containing info about whether the request was successful or there were errors
      */
-    RequestStatus authUser(String username, String password, boolean isNew) throws RemoteException;
+    RequestStatus authorizeUser(String username, String password, boolean isNew) throws RemoteException;
 
     /**
-     * Sends a request to get dialogue keys and users that are in there for authorized user
+     * Sends a request to get dialogue keys and participants for authorized user
      *
-     * @return {@link List} of {@link Integer}s containing dialogue keys and {@link List}s of {@link String}s containing users that are in each dialogue
+     * @return {@link Multimap} of {@link Integer}s containing dialogue keys to {@link java.util.Collection} of {@link String}s containing dialogue participants
      */
-    List<Pair<Integer, List<String>>> getDialogueKeys() throws RemoteException;
+    Optional<Multimap<Integer, String>> getDialogueKeys() throws RemoteException;
 
     /**
      * Sends a request to get all the messages of specific dialogue
      * Should be used mostly when first accessing the dialogue after authorization
      *
      * @param dialogueKey {@link Integer} containing key of the dialogue to get messages for
-     * @return {@link List} of {@link ReplyMessage}s containing chat history of the dialogue
+     * @return {@link List} of {@link ReplyMessage}s containing dialogue's chat history
      */
-    List<ReplyMessage> getDialogueMessages(int dialogueKey) throws RemoteException;
+    Optional<List<ReplyMessage>> getDialogueMessages(int dialogueKey) throws RemoteException;
 
     /**
      * Sends a request to add the message into the specific dialogue

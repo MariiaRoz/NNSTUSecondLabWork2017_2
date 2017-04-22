@@ -7,11 +7,9 @@ package org.nnstu4.server.structures;
  */
 public enum RequestStatus {
     SUCCESS("Success"),
-    ILLEGAL_ARGUMENT_ERROR("Illegal argument error"),
-    NOT_FOUND_ERROR("Not found error"),
-    CONNECTION_ERROR("Connection error"),
-    ACCESS_ERROR("Access error"),
-    UNDEFINED_ERROR("Undefined error");
+    USER_NOT_FOUND_ERROR("User not found error"),
+    INCORRECT_PASSWORD_ERROR("Incorrect password error"),
+    CONNECTION_ERROR("Connection error");
 
     private final String value;
 
