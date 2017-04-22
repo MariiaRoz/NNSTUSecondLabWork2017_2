@@ -1,3 +1,4 @@
 Minutes of the Meeting:
 
-7/4/2017 - Not bad, good DB implementation, average server design, client and UI in studying.
+ 7/4/2017 - Not bad, good DB implementation, average server design, client and UI in studying.
+21/4/2017 - Seems like everything is in active development.

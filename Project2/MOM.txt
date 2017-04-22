@@ -1,3 +1,4 @@
 Minutes of the Meeting:
 
-6/4/2017 - Girlas are studying material, client in progress, DB in quite good state, but requires team work first.
+ 6/4/2017 - Girls are studying material, client in progress, DB in quite good state, but requires team work first.
+21/4/2017 - Most part in active development, except server.
